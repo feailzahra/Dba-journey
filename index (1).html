@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DBA Research Journey</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap">
+<style>
+:root{--bg:#eef2f8;--card:#fff;--ink:#14213d;--mu:#5f6c86;--line:#dbe2ef;--soft:#f3f6fc;--navy:#12294d;--ind:#3b5bdb;--teal:#0ca678;--amb:#e08a00;--cor:#e8590c;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0e1626;--card:#16213a;--ink:#e8edf8;--mu:#9aa8c4;--line:#27365a;--soft:#1b2846;--ind:#7c97ff;--teal:#33c99b;--amb:#f5b83d;--cor:#ff8a50;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,sans-serif}
+h1,h2,h3,.hd{font-family:Manrope,Inter,sans-serif;letter-spacing:-.01em}
+.card{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--c,var(--ind));border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(18,41,77,.06),0 8px 24px rgba(18,41,77,.05)}
+.hero{position:relative;overflow:hidden;border-radius:18px;padding:24px;color:#fff;background:linear-gradient(120deg,#12294d,#1d3f7a 70%,#2a4fa3)}
+.shp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.rel{position:relative}
+.glass{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:6px 12px;text-align:center;min-width:56px}
+.mu{color:var(--mu)}.in{background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:9px 11px;width:100%;font:inherit}
+.in:focus,.bt:focus-visible,.sw:focus-visible{outline:2px solid var(--ind);outline-offset:1px}
+.bt{background:var(--ind);color:#fff;border:1px solid var(--ind);border-radius:9px;padding:8px 15px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}.bt:hover{filter:brightness(1.08)}
+.b2{background:transparent;color:var(--ink);border-color:var(--line)}.b2.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
+.hero .b2{color:#fff;border-color:rgba(255,255,255,.4)}
+.chip{border:0;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:600;white-space:nowrap}
+.x{background:none;border:0;color:var(--mu);cursor:pointer;font-size:13px;padding:2px 6px}.x:hover{color:var(--cor)}
+.sw{width:40px;height:22px;border-radius:99px;border:1px solid var(--line);background:var(--soft);position:relative;cursor:pointer;padding:0}.sw i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--mu);transition:.15s}.sw[aria-checked=true]{background:var(--ind)}.sw[aria-checked=true] i{left:20px;background:#fff}
+.pb{height:10px;border-radius:9px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}.pb div{height:100%;background:linear-gradient(90deg,var(--teal),#6ee7b7);transition:width .3s}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:8px}
+.fade{animation:fin .4s ease both}@keyframes fin{from{opacity:0;transform:translateY(8px)}}@media (prefers-reduced-motion:reduce){.fade{animation:none}}
+</style></head><body><div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/htm@3.1.1/dist/htm.umd.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+/* ====== 1. PASTE YOUR SUPABASE DETAILS HERE ====== */
+const SUPABASE_URL='https://xpqlszvntjcssvrqjkqv.supabase.co';           // e.g. https://abcd1234.supabase.co
+const SUPABASE_KEY='sb_publishable_aEr5WTx6GHEEW72HVCyJ0Q_3JZnevzW';       // Publishable / anon key (never the secret key)
+/* ================================================= */
+const {useState,useEffect}=React,html=htm.bind(React.createElement);
+const CONFIGURED=!SUPABASE_URL.startsWith('YOUR')&&!SUPABASE_KEY.startsWith('YOUR');
+const remembered=()=>localStorage.getItem('dba_remember')!=='0';
+const mkClient=on=>CONFIGURED?supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{auth:{storage:on?localStorage:sessionStorage}}):null;
+let sb=mkClient(remembered());
+const useRemember=on=>{localStorage.setItem('dba_remember',on?'1':'0');sb=mkClient(on)};
+const PH=['Topic & Supervisor','Literature Review','Methodology','Proposal Defense','Ethics / IRB','Pilot Study','Data Collection','Analysis','Anti-Scam Framework','Writing & Viva'];
+const PC=['#3b5bdb','#7048e8','#1c7ed6','#0ca678','#e08a00','#0b8f9e','#e8590c','#c2255c','#2f9e44','#12294d'];
+const pc=p=>PC[Math.max(0,PH.indexOf(p))];
+const QS=[['It does not matter how slowly you go as long as you do not stop.','Confucius'],['Knowledge is of no value unless you put it into practice.','Anton Chekhov'],['Research is to see what everybody else has seen, and to think what nobody else has thought.','Albert Szent-Györgyi'],['Perseverance is not a long race; it is many short races one after the other.','Walter Elliot'],['We are what we repeatedly do. Excellence, then, is not an act, but a habit.','Will Durant'],['Genius is one percent inspiration and ninety-nine percent perspiration.','Thomas Edison'],['The beginning is the most important part of the work.','Plato'],['Fall seven times, stand up eight.','Japanese proverb']];
+const todayS=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
+const fmt=i=>new Date(i).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});
+const Shapes=()=>html`<svg class="shp" viewBox="0 0 400 200" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><circle cx="340" cy="30" r="78" fill="#3b5bdb" opacity=".45"/><circle cx="262" cy="160" r="40" fill="#0ca678" opacity=".55"/><rect x="305" y="105" width="72" height="72" rx="14" fill="#f5a524" opacity=".5" transform="rotate(18 341 141)"/><polygon points="190,24 238,112 142,112" fill="#e8590c" opacity=".4"/><circle cx="120" cy="176" r="14" fill="#fff" opacity=".22"/><rect x="60" y="20" width="26" height="26" rx="6" fill="#fff" opacity=".12" transform="rotate(30 73 33)"/></svg>`;
+
+function Login({onMsg}){
+ const[mode,setMode]=useState('in'),[f,setF]=useState({name:'',email:'',pw:''}),[rem,setRem]=useState(true),[err,setErr]=useState(''),[busy,setBusy]=useState(false);
+ const set=k=>e=>setF({...f,[k]:e.target.value});
+ const run=async fn=>{setErr('');if(!CONFIGURED)return setErr('Add your Supabase URL and key at the top of index.html first.');setBusy(true);try{await fn()}catch(e){setErr(e.message||'Something went wrong.')}setBusy(false)};
+ const submit=e=>{e.preventDefault();run(async()=>{
+  if(!f.email||!f.pw)throw new Error('Enter your email and password.');
+  useRemember(rem);
+  if(mode==='up'){const{data,error}=await sb.auth.signUp({email:f.email.trim(),password:f.pw,options:{data:{name:f.name.trim()}}});if(error)throw error;
+   if(!data.session){setMode('in');setErr('Account created. Check your email to confirm, then log in.')}}
+  else{const{error}=await sb.auth.signInWithPassword({email:f.email.trim(),password:f.pw});if(error)throw error}})};
+ const demo=()=>run(async()=>{useRemember(false);const{error}=await sb.auth.signInAnonymously();if(error)throw error});
+ return html`<main class="grid md:grid-cols-2 min-h-screen fade">
+  <section class="rel overflow-hidden p-8 md:p-12 flex flex-col justify-end text-white" style=${{background:'linear-gradient(140deg,#0d1f3c,#1d3f7a)',minHeight:240}}><${Shapes}/>
+   <div class="rel"><h1 class="text-4xl font-extrabold m-0">DBA Research Journey</h1><p class="mt-3 mb-0 max-w-sm" style=${{opacity:.85}}>Plan daily tasks, capture research notes and count down to submission, synced across all your devices.</p></div></section>
+  <section class="grid place-items-center p-6"><div class="w-full max-w-sm">
+   <h2 class="text-2xl font-bold m-0">${mode==='in'?'Welcome back':'Create your account'}</h2>
+   <p class="mu mt-1 mb-5">${mode==='in'?'Log in to continue your research.':'Your data will sync to every device you log in on.'}</p>
+   ${!CONFIGURED&&html`<p class="p-3 rounded-lg" style=${{background:'#fff4e0',color:'#7a4a00'}}>Setup needed: add your Supabase URL and key at the top of <b>index.html</b>.</p>`}
+   <form onSubmit=${submit} class="grid gap-3">
+    ${mode==='up'&&html`<label class="grid gap-1">Your name<input class="in" value=${f.name} onInput=${set('name')} autocomplete="name"/></label>`}
+    <label class="grid gap-1">Email<input class="in" type="email" value=${f.email} onInput=${set('email')} autocomplete="email"/></label>
+    <label class="grid gap-1">Password<input class="in" type="password" value=${f.pw} onInput=${set('pw')} autocomplete=${mode==='in'?'current-password':'new-password'}/></label>
+    <div class="flex items-center gap-2"><button type="button" class="sw" role="switch" aria-checked=${rem} aria-label="Remember me" onClick=${()=>setRem(!rem)}><i></i></button><span>Remember me</span></div>
+    ${err&&html`<p class="m-0" role="alert" style=${{color:'var(--cor)'}}>${err}</p>`}
+    <button class="bt" disabled=${busy}>${busy?'Please wait…':mode==='in'?'Log in':'Create account'}</button></form>
+   <button class="bt b2 w-full mt-3" onClick=${demo} disabled=${busy}>Try the demo account</button>
+   <button class="x mt-3" onClick=${()=>{setMode(mode==='in'?'up':'in');setErr('')}}>${mode==='in'?'New here? Create an account':'Have an account? Log in'}</button>
+  </div></section></main>`}
+
+function Dash({user}){
+ const td=todayS(),[d,setD]=useState({tasks:[],notes:[],quotes:[],target:'2027-11-12'}),[loading,setLoading]=useState(true);
+ const[msg,setMsg]=useState('');const say=m=>{setMsg(m);setTimeout(()=>setMsg(''),5000)};
+ const load=async()=>{const[t,n,q,s]=await Promise.all([sb.from('tasks').select('*').order('created_at',{ascending:false}),sb.from('notes').select('*').order('created_at',{ascending:false}),sb.from('quotes').select('*').order('created_at'),sb.from('settings').select('*').maybeSingle()]);
+  const e=t.error||n.error||q.error||s.error;if(e)say('Could not load data: '+e.message);else setD({tasks:t.data,notes:n.data,quotes:q.data,target:s.data?.target_date||'2027-11-12'});setLoading(false)};
+ useEffect(()=>{load();const f=()=>document.visibilityState==='visible'&&load();document.addEventListener('visibilitychange',f);return()=>document.removeEventListener('visibilitychange',f)},[]);
+ const[now,setNow]=useState(Date.now());useEffect(()=>{const t=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(t)},[]);
+ const name=user.user_metadata?.name||(user.email?user.email.split('@')[0]:'Researcher');
+ const diff=new Date(d.target+'T23:59:59').getTime()-now,ok=diff>0,P=n=>String(n).padStart(2,'0');
+ const cd=[['days',Math.floor(diff/864e5)],['hrs',Math.floor(diff/36e5)%24],['min',Math.floor(diff/6e4)%60],['sec',Math.floor(diff/1e3)%60]];
+ const hr=new Date().getHours(),hello=hr<12?'Good morning':hr<18?'Good afternoon':'Good evening';
+ const setTarget=async v=>{if(!v)return;setD(x=>({...x,target:v}));const{error}=await sb.from('settings').upsert({user_id:user.id,target_date:v});if(error)say(error.message)};
+ // quotes
+ const all=[...QS.map(q=>({t:q[0],by:q[1]})),...d.quotes.map(q=>({t:q.text,by:q.author||'Me',id:q.id}))];
+ const[qi,setQi]=useState(()=>Math.floor(Date.now()/864e5)%QS.length),[qf,setQf]=useState(null),cur=all[qi%all.length];
+ const addQ=async e=>{e.preventDefault();if(!qf.text.trim())return;const{data,error}=await sb.from('quotes').insert({text:qf.text.trim(),author:qf.by.trim()}).select().single();if(error)return say(error.message);setD(x=>({...x,quotes:[...x.quotes,data]}));setQi(all.length);setQf(null)};
+ const delQ=async id=>{setD(x=>({...x,quotes:x.quotes.filter(q=>q.id!==id)}));setQi(0);const{error}=await sb.from('quotes').delete().eq('id',id);if(error)say(error.message)};
+ // tasks
+ const[tf,setTf]=useState({text:'',ph:PH[1]}),[view,setView]=useState('today');
+ const addT=async e=>{e.preventDefault();if(!tf.text.trim())return;const{data,error}=await sb.from('tasks').insert({text:tf.text.trim(),phase:tf.ph,task_date:td}).select().single();if(error)return say(error.message);setD(x=>({...x,tasks:[data,...x.tasks]}));setTf({...tf,text:''})};
+ const togT=async t=>{setD(x=>({...x,tasks:x.tasks.map(y=>y.id===t.id?{...y,done:!y.done}:y)}));const{error}=await sb.from('tasks').update({done:!t.done}).eq('id',t.id);if(error){say(error.message);load()}};
+ const delT=async id=>{setD(x=>({...x,tasks:x.tasks.filter(y=>y.id!==id)}));const{error}=await sb.from('tasks').delete().eq('id',id);if(error){say(error.message);load()}};
+ const tt=d.tasks.filter(t=>t.task_date===td),dn=tt.filter(t=>t.done).length,pct=tt.length?Math.round(dn/tt.length*100):0,shown=view==='today'?tt:d.tasks;
+ // notes
+ const E0={id:'',title:'',body:'',tags:''},[nf,setNf]=useState(E0),[q,setQ]=useState('');
+ const saveN=async e=>{e.preventDefault();if(!nf.title.trim()&&!nf.body.trim())return;const tags=nf.tags.split(',').map(s=>s.trim().replace(/^#/,'')).filter(Boolean);
+  if(nf.id){const{data,error}=await sb.from('notes').update({title:nf.title,body:nf.body,tags,edited_at:new Date().toISOString()}).eq('id',nf.id).select().single();if(error)return say(error.message);setD(x=>({...x,notes:x.notes.map(n=>n.id===nf.id?data:n)}))}
+  else{const{data,error}=await sb.from('notes').insert({title:nf.title,body:nf.body,tags}).select().single();if(error)return say(error.message);setD(x=>({...x,notes:[data,...x.notes]}))}
+  setNf(E0)};
+ const delN=async id=>{setD(x=>({...x,notes:x.notes.filter(n=>n.id!==id)}));const{error}=await sb.from('notes').delete().eq('id',id);if(error){say(error.message);load()}};
+ const notes=d.notes.filter(n=>(n.title+' '+n.body+' '+n.tags.join(' ')).toLowerCase().includes(q.toLowerCase()));
+ // backup
+ const save=(name,data)=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data]));a.download=name;a.click();say('Downloaded '+name)};
+ const expJ=()=>save('dba-backup-'+td+'.json',JSON.stringify({app:'dba-journey',version:2,exported:new Date().toISOString(),tasks:d.tasks,notes:d.notes,quotes:d.quotes,target:d.target},null,2));
+ const E=s=>'"'+String(s??'').replace(/"/g,'""')+'"';
+ const expC=()=>{const r=[['type','date','title_or_task','phase_or_tags','status','body_or_author']];
+  d.tasks.forEach(t=>r.push(['task',t.task_date,t.text,t.phase,t.done?'done':'open','']));d.notes.forEach(n=>r.push(['note',n.created_at,n.title,n.tags.join('; '),'',n.body]));d.quotes.forEach(x=>r.push(['quote','',x.text,'','',x.author]));
+  save('dba-backup-'+td+'.csv','\ufeff'+r.map(x=>x.map(E).join(',')).join('\r\n'))};
+ const imp=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();
+  r.onload=async()=>{try{const j=JSON.parse(r.result);if(j.app!=='dba-journey')throw new Error('x');
+   const ts=new Set(d.tasks.map(t=>t.text+t.task_date)),ns=new Set(d.notes.map(n=>n.title+n.body)),qs=new Set(d.quotes.map(x=>x.text));
+   const T=(j.tasks||[]).map(t=>({text:t.text,phase:t.phase||t.ph||PH[1],task_date:t.task_date||t.date||td,done:!!t.done})).filter(t=>!ts.has(t.text+t.task_date));
+   const N=(j.notes||[]).map(n=>({title:n.title||'',body:n.body||'',tags:n.tags||[],created_at:n.created_at||n.created||new Date().toISOString(),edited_at:n.edited_at||n.edited||null})).filter(n=>!ns.has(n.title+n.body));
+   const Q=(j.quotes||[]).map(x=>({text:x.text,author:x.author||x.by||''})).filter(x=>!qs.has(x.text));
+   for(const[tb,rows]of[['tasks',T],['notes',N],['quotes',Q]])if(rows.length){const{error}=await sb.from(tb).insert(rows);if(error)throw error}
+   if(j.target)await setTarget(j.target);await load();say('Imported '+T.length+' tasks, '+N.length+' notes, '+Q.length+' quotes.')}catch(err){say('Import failed: not a valid DBA Journey JSON backup.')}};r.readAsText(f)};
+ const out=()=>sb.auth.signOut();
+ return html`<div class="fade mx-auto max-w-6xl p-4 md:p-6 grid gap-5">
+  <header class="hero"><${Shapes}/><div class="rel flex flex-wrap items-center justify-between gap-5">
+   <div><h1 class="hd text-3xl font-extrabold m-0">${hello}, ${name}</h1><p class="m-0 mt-1" style=${{opacity:.8}}>${new Date(now).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p></div>
+   <div class="flex items-center gap-4 flex-wrap"><div>
+    <div class="flex gap-2" aria-label="Countdown to DBA target date">${ok?cd.map(c=>html`<div class="glass" key=${c[0]}><div class="hd text-2xl font-bold leading-tight">${c[0]==='days'?c[1]:P(c[1])}</div><div class="text-xs" style=${{opacity:.75}}>${c[0]}</div></div>`):html`<strong>Target date reached</strong>`}</div>
+    <label class="text-xs flex items-center gap-2 mt-2" style=${{opacity:.9}}>DBA target date <input type="date" class="in" style=${{padding:'2px 6px',width:'auto',background:'rgba(255,255,255,.14)',color:'#fff',borderColor:'rgba(255,255,255,.3)'}} value=${d.target} onChange=${e=>setTarget(e.target.value)}/></label></div>
+    <button class="bt b2" onClick=${out}>Log out</button></div></div></header>
+
+  <section class="card" style=${{'--c':'var(--ind)'}} aria-label="Daily quote">
+   <p class="hd text-2xl font-semibold m-0 leading-snug">“${cur.t}”</p><p class="mu mt-2 mb-3">— ${cur.by}</p>
+   <div class="flex gap-2 flex-wrap items-center"><button class="bt b2" onClick=${()=>setQi((qi+1)%all.length)}>Next quote</button><button class="bt b2" onClick=${()=>setQf(qf?null:{text:'',by:''})}>${qf?'Cancel':'Add my own quote'}</button>${cur.id&&html`<button class="x" onClick=${()=>delQ(cur.id)}>Delete this quote</button>`}</div>
+   ${qf&&html`<form onSubmit=${addQ} class="grid gap-2 mt-3 md:grid-cols-[2fr_1fr_auto]"><input class="in" placeholder="Quote text" value=${qf.text} onInput=${e=>setQf({...qf,text:e.target.value})}/><input class="in" placeholder="Author (optional)" value=${qf.by} onInput=${e=>setQf({...qf,by:e.target.value})}/><button class="bt">Save quote</button></form>`}</section>
+
+  <div class="grid gap-5 lg:grid-cols-5">
+   <section class="card lg:col-span-2" style=${{'--c':'var(--teal)'}} aria-label="Task tracker">
+    <h2 class="text-xl font-bold m-0 mb-3">Today’s DBA tasks</h2>
+    <div class="flex justify-between mu mb-1"><span>${dn} of ${tt.length} done</span><strong style=${{color:'var(--teal)'}}>${pct}%</strong></div>
+    <div class="pb mb-4" role="progressbar" aria-valuenow=${pct} aria-valuemin="0" aria-valuemax="100"><div style=${{width:pct+'%'}}></div></div>
+    <form onSubmit=${addT} class="grid gap-2 mb-3"><input class="in" placeholder="What will you work on?" value=${tf.text} onInput=${e=>setTf({...tf,text:e.target.value})}/>
+     <div class="flex gap-2"><select class="in" value=${tf.ph} onChange=${e=>setTf({...tf,ph:e.target.value})}>${PH.map(p=>html`<option key=${p}>${p}</option>`)}</select><button class="bt" style=${{background:'var(--teal)',borderColor:'var(--teal)'}}>Add</button></div></form>
+    <div class="flex gap-2 mb-2"><button class=${'bt b2 '+(view==='today'?'on':'')} onClick=${()=>setView('today')}>Today</button><button class=${'bt b2 '+(view==='all'?'on':'')} onClick=${()=>setView('all')}>All dates</button></div>
+    ${loading?html`<p class="mu">Loading…</p>`:!shown.length&&html`<p class="mu">No tasks yet. Add the first one above.</p>`}
+    <ul class="list-none p-0 m-0">${shown.map(t=>html`<li key=${t.id} class="flex items-start gap-2 py-2" style=${{borderBottom:'1px solid var(--line)'}}>
+     <input type="checkbox" class="mt-1" checked=${t.done} aria-label=${'Done: '+t.text} onChange=${()=>togT(t)}/>
+     <div class="flex-1"><div style=${{textDecoration:t.done?'line-through':'none',opacity:t.done?.55:1}}>${t.text}</div><span class="chip" style=${{background:pc(t.phase)+'22',color:pc(t.phase)}}>${t.phase}</span>${view==='all'&&html`<span class="mu text-xs ml-2">${t.task_date}</span>`}</div>
+     <button class="x" aria-label="Delete task" onClick=${()=>delT(t.id)}>Delete</button></li>`)}</ul></section>
+
+   <section class="card lg:col-span-3" style=${{'--c':'var(--amb)'}} aria-label="Research notes">
+    <h2 class="text-xl font-bold m-0 mb-3">Quick research notes</h2>
+    <form onSubmit=${saveN} class="grid gap-2 mb-4"><input class="in" placeholder="Title (e.g. Paper summary: Witte 1992)" value=${nf.title} onInput=${e=>setNf({...nf,title:e.target.value})}/>
+     <textarea class="in" rows="4" placeholder="Write your note…" value=${nf.body} onInput=${e=>setNf({...nf,body:e.target.value})}></textarea>
+     <div class="flex gap-2 flex-wrap"><input class="in" style=${{flex:1,minWidth:160}} placeholder="Tags, comma-separated (pmt, scam-framework)" value=${nf.tags} onInput=${e=>setNf({...nf,tags:e.target.value})}/><button class="bt" style=${{background:'var(--amb)',borderColor:'var(--amb)'}}>${nf.id?'Update note':'Save note'}</button>${nf.id&&html`<button type="button" class="bt b2" onClick=${()=>setNf(E0)}>Cancel</button>`}</div></form>
+    <input class="in mb-3" type="search" placeholder="Search notes by text or tag" value=${q} onInput=${e=>setQ(e.target.value)} aria-label="Search notes"/>
+    ${!notes.length&&!loading&&html`<p class="mu">${d.notes.length?'No notes match your search.':'No notes yet. Capture your first idea above.'}</p>`}
+    <div class="grid gap-3">${notes.map(n=>html`<article key=${n.id} class="p-3" style=${{border:'1px solid var(--line)',borderLeft:'4px solid var(--amb)',borderRadius:10,background:'var(--soft)'}}>
+     <div class="flex justify-between gap-2"><h3 class="m-0 font-bold">${n.title||'Untitled'}</h3><div class="shrink-0"><button class="x" onClick=${()=>{setNf({id:n.id,title:n.title,body:n.body,tags:n.tags.join(', ')});window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})}}>Edit</button><button class="x" onClick=${()=>delN(n.id)}>Delete</button></div></div>
+     <p class="mu text-xs mt-0 mb-2">${fmt(n.created_at)}${n.edited_at?' · edited '+fmt(n.edited_at):''}</p>
+     <p class="m-0 mb-2" style=${{whiteSpace:'pre-wrap'}}>${n.body}</p>
+     <div class="flex gap-1 flex-wrap">${n.tags.map(t=>html`<button class="chip" key=${t} style=${{background:'color-mix(in srgb,var(--amb) 18%,transparent)',color:'var(--amb)',cursor:'pointer'}} onClick=${()=>setQ(t)}>#${t}</button>`)}</div></article>`)}</div></section>
+  </div>
+
+  <footer class="card flex flex-wrap items-center gap-2" style=${{'--c':'var(--cor)'}} aria-label="Backup">
+   <strong class="mr-2"><span class="dot" style=${{background:'var(--cor)'}}></span>Backup</strong>
+   <button class="bt b2" onClick=${expJ}>Export JSON</button><button class="bt b2" onClick=${expC}>Export CSV</button>
+   <label class="bt b2 m-0" style=${{cursor:'pointer'}}>Import backup (JSON)<input type="file" accept=".json,application/json" class="hidden" onChange=${imp}/></label>
+   <span class="mu text-sm" role="status">${msg||'Synced to your account. Changes appear on all your devices.'}</span></footer></div>`}
+
+function App(){
+ const[u,setU]=useState(null),[ready,setReady]=useState(false);
+ useEffect(()=>{if(!sb){setReady(true);return}
+  sb.auth.getSession().then(({data})=>{setU(data.session?.user??null);setReady(true)});
+  const{data:l}=sb.auth.onAuthStateChange((_e,s)=>setU(s?.user??null));return()=>l.subscription.unsubscribe()},[]);
+ if(!ready)return html`<p class="p-6 mu">Loading…</p>`;
+ return u?html`<${Dash} key=${u.id} user=${u}/>`:html`<${Login}/>`}
+ReactDOM.createRoot(document.getElementById('root')).render(html`<${App}/>`);
+</script></body></html>
