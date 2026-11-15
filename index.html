@@ -55,7 +55,7 @@ function Login({onMsg}){
   if(mode==='up'){const{data,error}=await sb.auth.signUp({email:f.email.trim(),password:f.pw,options:{data:{name:f.name.trim()}}});if(error)throw error;
    if(!data.session){setMode('in');setErr('Account created. Check your email to confirm, then log in.')}}
   else{const{error}=await sb.auth.signInWithPassword({email:f.email.trim(),password:f.pw});if(error)throw error}})};
- const demo=()=>run(async()=>{useRemember(false);const{error}=await sb.auth.signInAnonymously();if(error)throw error});
+ const demo=()=>run(async()=>{useRemember(true);const{error}=await sb.auth.signInAnonymously();if(error)throw error});
  return html`<main class="grid md:grid-cols-2 min-h-screen fade">
   <section class="rel overflow-hidden p-8 md:p-12 flex flex-col justify-end text-white" style=${{background:'linear-gradient(140deg,#0d1f3c,#1d3f7a)',minHeight:240}}><${Shapes}/>
    <div class="rel"><h1 class="text-4xl font-extrabold m-0">DBA Research Journey</h1><p class="mt-3 mb-0 max-w-sm" style=${{opacity:.85}}>Plan daily tasks, capture research notes and count down to submission, synced across all your devices.</p></div></section>
