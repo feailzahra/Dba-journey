@@ -1,18 +1,19 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>DBA Research Journey</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="/manifest.webmanifest"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><meta name="theme-color" content="#12294d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="DBA Journey"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>DBA Research Journey</title>
 <script src="https://cdn.tailwindcss.com/3.4.17"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap">
 <style>
-:root{--bg:#eef2f8;--card:#fff;--ink:#14213d;--mu:#5f6c86;--line:#dbe2ef;--soft:#f3f6fc;--navy:#12294d;--ind:#3b5bdb;--teal:#0ca678;--amb:#e08a00;--cor:#e8590c;color-scheme:light}
-@media (prefers-color-scheme:dark){:root{--bg:#0e1626;--card:#16213a;--ink:#e8edf8;--mu:#9aa8c4;--line:#27365a;--soft:#1b2846;--ind:#7c97ff;--teal:#33c99b;--amb:#f5b83d;--cor:#ff8a50;color-scheme:dark}}
+:root{--bg:#eef2f8;--card:#fff;--ink:#14213d;--mu:#5f6c86;--line:#dbe2ef;--soft:#f3f6fc;--navy:#12294d;--ind:#3b5bdb;--teal:#0ca678;--amb:#e08a00;--cor:#e8590c;--on:#fff;--h1:#12294d;--h2:#1d3f7a;--h3:#2a4fa3;color-scheme:light}
+:root[data-theme="day"]{--bg:#f4f8ff;--h1:#1b5fd0;--h2:#2f86f0;--h3:#59b4ff}:root[data-theme="night"]{--bg:#1f1812;--card:#2a2018;--ink:#f6e9d8;--mu:#c8ad92;--line:#43342a;--soft:#33271e;--ind:#f29a4a;--teal:#e3b04b;--amb:#f2c14e;--cor:#ff7a59;--on:#2a1608;--h1:#3a2314;--h2:#6b3a1c;--h3:#b05a24;color-scheme:dark}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,sans-serif}
 h1,h2,h3,.hd{font-family:Manrope,Inter,sans-serif;letter-spacing:-.01em}
 .card{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--c,var(--ind));border-radius:14px;padding:20px;box-shadow:0 1px 2px rgba(18,41,77,.06),0 8px 24px rgba(18,41,77,.05)}
-.hero{position:relative;overflow:hidden;border-radius:18px;padding:24px;color:#fff;background:linear-gradient(120deg,#12294d,#1d3f7a 70%,#2a4fa3)}
+.hero{position:relative;overflow:hidden;border-radius:18px;padding:24px;color:#fff;background:linear-gradient(120deg,var(--h1),var(--h2) 70%,var(--h3))}
 .shp{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.rel{position:relative}
 .glass{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:6px 12px;text-align:center;min-width:56px}
 .mu{color:var(--mu)}.in{background:var(--soft);border:1px solid var(--line);color:var(--ink);border-radius:9px;padding:9px 11px;width:100%;font:inherit}
 .in:focus,.bt:focus-visible,.sw:focus-visible{outline:2px solid var(--ind);outline-offset:1px}
-.bt{background:var(--ind);color:#fff;border:1px solid var(--ind);border-radius:9px;padding:8px 15px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}.bt:hover{filter:brightness(1.08)}
+.bt{background:var(--ind);color:var(--on);border:1px solid var(--ind);border-radius:9px;padding:8px 15px;font:inherit;font-weight:600;cursor:pointer;white-space:nowrap}.bt:hover{filter:brightness(1.08)}
 .b2{background:transparent;color:var(--ink);border-color:var(--line)}.b2.on{background:var(--ink);color:var(--card);border-color:var(--ink)}
 .hero .b2{color:#fff;border-color:rgba(255,255,255,.4)}
 .chip{border:0;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:600;white-space:nowrap}
@@ -20,6 +21,8 @@ h1,h2,h3,.hd{font-family:Manrope,Inter,sans-serif;letter-spacing:-.01em}
 .sw{width:40px;height:22px;border-radius:99px;border:1px solid var(--line);background:var(--soft);position:relative;cursor:pointer;padding:0}.sw i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--mu);transition:.15s}.sw[aria-checked=true]{background:var(--ind)}.sw[aria-checked=true] i{left:20px;background:#fff}
 .pb{height:10px;border-radius:9px;background:var(--soft);overflow:hidden;border:1px solid var(--line)}.pb div{height:100%;background:linear-gradient(90deg,var(--teal),#6ee7b7);transition:width .3s}
 .dot{width:10px;height:10px;border-radius:3px;display:inline-block;margin-right:8px}
+@media (pointer:coarse){.bt,.x{min-height:44px}.in{min-height:44px;font-size:16px}input[type=checkbox]{width:22px;height:22px}}
+body{padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);-webkit-text-size-adjust:100%}
 .fade{animation:fin .4s ease both}@keyframes fin{from{opacity:0;transform:translateY(8px)}}@media (prefers-reduced-motion:reduce){.fade{animation:none}}
 </style></head><body><div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
@@ -39,12 +42,20 @@ let sb=mkClient(remembered());
 const useRemember=on=>{localStorage.setItem('dba_remember',on?'1':'0');sb=mkClient(on)};
 const PH=['Topic & Supervisor','Literature Review','Methodology','Proposal Defense','Ethics / IRB','Pilot Study','Data Collection','Analysis','Anti-Scam Framework','Writing & Viva'];
 const PC=['#3b5bdb','#7048e8','#1c7ed6','#0ca678','#e08a00','#0b8f9e','#e8590c','#c2255c','#2f9e44','#12294d'];
-const pc=p=>PC[Math.max(0,PH.indexOf(p))];
+const pc=p=>PC[(PH.indexOf(p)>=0?PH.indexOf(p):[...String(p)].reduce((a,c)=>a+c.charCodeAt(0),0))%PC.length];
 const QS=[['It does not matter how slowly you go as long as you do not stop.','Confucius'],['Knowledge is of no value unless you put it into practice.','Anton Chekhov'],['Research is to see what everybody else has seen, and to think what nobody else has thought.','Albert Szent-Györgyi'],['Perseverance is not a long race; it is many short races one after the other.','Walter Elliot'],['We are what we repeatedly do. Excellence, then, is not an act, but a habit.','Will Durant'],['Genius is one percent inspiration and ninety-nine percent perspiration.','Thomas Edison'],['The beginning is the most important part of the work.','Plato'],['Fall seven times, stand up eight.','Japanese proverb']];
 const todayS=()=>new Date(Date.now()-new Date().getTimezoneOffset()*6e4).toISOString().slice(0,10);
 const fmt=i=>new Date(i).toLocaleString('en-GB',{dateStyle:'medium',timeStyle:'short'});
 const Shapes=()=>html`<svg class="shp" viewBox="0 0 400 200" preserveAspectRatio="xMaxYMid slice" aria-hidden="true"><circle cx="340" cy="30" r="78" fill="#3b5bdb" opacity=".45"/><circle cx="262" cy="160" r="40" fill="#0ca678" opacity=".55"/><rect x="305" y="105" width="72" height="72" rx="14" fill="#f5a524" opacity=".5" transform="rotate(18 341 141)"/><polygon points="190,24 238,112 142,112" fill="#e8590c" opacity=".4"/><circle cx="120" cy="176" r="14" fill="#fff" opacity=".22"/><rect x="60" y="20" width="26" height="26" rx="6" fill="#fff" opacity=".12" transform="rotate(30 73 33)"/></svg>`;
 
+const CH=['Front matter / Abstract','Chapter 1: Introduction','Chapter 2: Literature Review','Chapter 3: Methodology','Chapter 4: Findings','Chapter 5: Discussion','Chapter 6: Conclusion'];
+const KINDS=['Thesis chapter','Supervisor feedback','Reference / article','Data / analysis','Other'];
+const STOP=new Set('the and for with from that this into about their which between toward towards using study based analysis effect effects among over under'.split(' '));
+const tg=v=>v.split(',').map(x=>x.trim().replace(/^#/,'')).filter(Boolean);
+const safe=u=>/^https?:\/\/\S+$/i.test((u||'').trim())?u.trim():'';
+const shrink=(file,max,q=.72)=>new Promise((res,rej)=>{const im=new Image();im.onload=()=>{const k=Math.min(1,max/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);res(c.toDataURL('image/jpeg',q))};im.onerror=rej;im.src=URL.createObjectURL(file)});
+const beep=()=>{try{const a=new (window.AudioContext||window.webkitAudioContext)();[0,.3,.6].forEach(t=>{const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;g.gain.value=.2;o.start(a.currentTime+t);o.stop(a.currentTime+t+.2)})}catch(e){}};
+{const h0=new Date().getHours();document.documentElement.dataset.theme=h0>=6&&h0<18?'day':'night'}
 function Login({onMsg}){
  const[mode,setMode]=useState('in'),[f,setF]=useState({name:'',email:'',pw:''}),[rem,setRem]=useState(true),[err,setErr]=useState(''),[busy,setBusy]=useState(false);
  const set=k=>e=>setF({...f,[k]:e.target.value});
@@ -74,14 +85,95 @@ function Login({onMsg}){
    <button class="x mt-3" onClick=${()=>{setMode(mode==='in'?'up':'in');setErr('')}}>${mode==='in'?'New here? Create an account':'Have an account? Log in'}</button>
   </div></section></main>`}
 
+function Alarms({s,saveS,say}){
+ const[al,setAl]=useState([]),[f,setF]=useState({label:'',note:'',at:''}),[ring,setRing]=useState(null),[pad,setPad]=useState(s.scratch||'');
+ const load=async()=>{const{data,error}=await sb.from('alarms').select('*').order('remind_at');if(error)say(error.message);else setAl(data)};
+ useEffect(()=>{load()},[]);
+ useEffect(()=>{const t=setInterval(()=>{if(ring)return;const a=al.find(x=>!x.done&&new Date(x.remind_at).getTime()<=Date.now());if(a){setRing(a);beep();try{if(Notification.permission==='granted')new Notification('DBA alarm: '+a.label,{body:a.note||''})}catch(e){}}},4000);return()=>clearInterval(t)},[al,ring]);
+ useEffect(()=>{if(pad===(s.scratch||''))return;const t=setTimeout(()=>saveS({scratch:pad}),900);return()=>clearTimeout(t)},[pad]);
+ const add=async e=>{e.preventDefault();if(!f.at)return say('Choose a date and time for the alarm.');const{data,error}=await sb.from('alarms').insert({label:f.label.trim()||'Alarm',note:f.note.trim(),remind_at:new Date(f.at).toISOString()}).select().single();if(error)return say(error.message);setAl([...al,data].sort((a,b)=>new Date(a.remind_at)-new Date(b.remind_at)));setF({label:'',note:'',at:''})};
+ const upd=async(a,p)=>{setAl(al.map(x=>x.id===a.id?{...x,...p}:x));setRing(null);const{error}=await sb.from('alarms').update(p).eq('id',a.id);if(error){say(error.message);load()}};
+ const del=async id=>{setAl(al.filter(x=>x.id!==id));await sb.from('alarms').delete().eq('id',id)};
+ const wh={color:'#fff',borderColor:'#fff'};
+ return html`<section class="card" style=${{'--c':'var(--cor)'}} aria-label="Alarms and notepad"><h2 class="text-xl font-bold m-0 mb-3">Alarms & notepad</h2>
+  ${ring&&html`<div role="alert" class="p-3 mb-3" style=${{background:'var(--cor)',color:'#fff',borderRadius:10}}><b>⏰ ${ring.label}</b><div>${ring.note}</div><div class="flex gap-2 mt-2"><button class="bt b2" style=${wh} onClick=${()=>upd(ring,{remind_at:new Date(Date.now()+3e5).toISOString()})}>Snooze 5 min</button><button class="bt b2" style=${wh} onClick=${()=>upd(ring,{done:true})}>Done</button></div></div>`}
+  <div class="grid gap-4 md:grid-cols-2"><div>
+   <form onSubmit=${add} class="grid gap-2"><input class="in" placeholder="Alarm label (e.g. Read 2 papers)" value=${f.label} onInput=${e=>setF({...f,label:e.target.value})}/><input type="datetime-local" class="in" aria-label="Alarm time" value=${f.at} onInput=${e=>setF({...f,at:e.target.value})}/><textarea class="in" rows="2" placeholder="Note shown when it rings (optional)" value=${f.note} onInput=${e=>setF({...f,note:e.target.value})}></textarea><button class="bt">Set alarm</button></form>
+   <button class="x mt-1" onClick=${()=>{try{Notification.requestPermission()}catch(e){}}}>Enable pop-up alerts</button><p class="mu text-xs m-0">Alarms ring while this page is open on any of your devices.</p>
+   <ul class="list-none p-0 mt-2">${al.filter(a=>!a.done).map(a=>html`<li key=${a.id} class="flex justify-between gap-2 py-1" style=${{borderBottom:'1px solid var(--line)'}}><span><b>${a.label}</b><br/><span class="mu text-xs">${fmt(a.remind_at)}${a.note?' · '+a.note:''}</span></span><button class="x" onClick=${()=>del(a.id)}>Delete</button></li>`)}</ul></div>
+   <label class="grid gap-1 content-start">Quick notepad (saves automatically)<textarea class="in" rows="9" value=${pad} onInput=${e=>setPad(e.target.value)}></textarea></label></div></section>`}
+
+function Research({s,saveS,touch,say}){
+ const[cm,setCm]=useState([]),[f,setF]=useState({chapter:s.current_chapter||CH[1],text:''}),[fo,setFo]=useState(s.focus_topic||''),[kw,setKw]=useState((s.focus_keywords||[]).join(', ')),[th,setTh]=useState((s.theories||[]).join(', ')),[fl,setFl]=useState('open');
+ const load=async()=>{const{data,error}=await sb.from('comments').select('*').order('created_at',{ascending:false});if(error)say(error.message);else setCm(data)};
+ useEffect(()=>{load()},[]);
+ const add=async e=>{e.preventDefault();if(!f.text.trim())return;const{data,error}=await sb.from('comments').insert({chapter:f.chapter,text:f.text.trim()}).select().single();if(error)return say(error.message);setCm([data,...cm]);setF({...f,text:''});touch({tab:'research'})};
+ const tog=async c=>{setCm(cm.map(x=>x.id===c.id?{...x,done:!x.done}:x));const{error}=await sb.from('comments').update({done:!c.done}).eq('id',c.id);if(error){say(error.message);load()}};
+ const del=async id=>{setCm(cm.filter(x=>x.id!==id));await sb.from('comments').delete().eq('id',id)};
+ const shown=cm.filter(c=>fl==='all'||c.done===(fl==='done'));
+ return html`<div class="grid gap-5 lg:grid-cols-2">
+  <section class="card" style=${{'--c':'var(--ind)'}}><h2 class="text-xl font-bold m-0 mb-1">Research focus</h2><p class="mu mt-0 mb-3">Your topic, keywords and theories power the paper relevance scan in Library.</p>
+   <div class="grid gap-3">
+    <label class="grid gap-1">Focus topic<input class="in" placeholder="e.g. Knowledge–action gap in e-wallet scam susceptibility" value=${fo} onInput=${e=>setFo(e.target.value)} onBlur=${()=>saveS({focus_topic:fo.trim()})}/></label>
+    <label class="grid gap-1">Keywords (comma-separated)<input class="in" placeholder="scam, phishing, e-wallet, self-efficacy" value=${kw} onInput=${e=>setKw(e.target.value)} onBlur=${()=>saveS({focus_keywords:tg(kw)})}/></label>
+    <label class="grid gap-1">Related theories (comma-separated)<input class="in" placeholder="protection motivation theory, theory of planned behaviour" value=${th} onInput=${e=>setTh(e.target.value)} onBlur=${()=>saveS({theories:tg(th)})}/></label>
+    <label class="grid gap-1">Chapter I’m working on now<select class="in" value=${s.current_chapter||''} onChange=${e=>{saveS({current_chapter:e.target.value});touch({tab:'research'})}}><option value="">Not set</option>${CH.map(c=>html`<option key=${c}>${c}</option>`)}</select></label></div></section>
+  <section class="card" style=${{'--c':'var(--cor)'}}><h2 class="text-xl font-bold m-0 mb-3">Supervisor comments</h2>
+   <form onSubmit=${add} class="grid gap-2 mb-3"><select class="in" value=${f.chapter} onChange=${e=>setF({...f,chapter:e.target.value})}>${CH.map(c=>html`<option key=${c}>${c}</option>`)}</select><textarea class="in" rows="3" placeholder="Paste or type the comment…" value=${f.text} onInput=${e=>setF({...f,text:e.target.value})}></textarea><button class="bt">Add comment</button></form>
+   <div class="flex gap-2 mb-2">${[['open','Open'],['done','Resolved'],['all','All']].map(x=>html`<button key=${x[0]} class=${'bt b2 '+(fl===x[0]?'on':'')} onClick=${()=>setFl(x[0])}>${x[1]}</button>`)}</div>
+   ${!shown.length&&html`<p class="mu">Nothing here yet.</p>`}
+   <ul class="list-none p-0 m-0">${shown.map(c=>html`<li key=${c.id} class="flex items-start gap-2 py-2" style=${{borderBottom:'1px solid var(--line)'}}><input type="checkbox" class="mt-1" checked=${c.done} aria-label="Resolved" onChange=${()=>tog(c)}/><div class="flex-1"><span class="chip" style=${{background:'var(--soft)',color:'var(--mu)'}}>${c.chapter}</span><div style=${{whiteSpace:'pre-wrap',opacity:c.done?.55:1}}>${c.text}</div><span class="mu text-xs">${fmt(c.created_at)}</span></div><button class="x" onClick=${()=>del(c.id)}>Delete</button></li>`)}</ul></section></div>`}
+
+function Library({s,touch,say}){
+ const P0={title:'',citation:'',url:'',abstract:'',tags:'',doc_id:''},D0={title:'',url:'',kind:KINDS[0]};
+ const[docs,setDocs]=useState([]),[ps,setPs]=useState([]),[pf,setPf]=useState(P0),[df,setDf]=useState(D0);
+ const load=async()=>{const[a,b]=await Promise.all([sb.from('docs').select('*').order('created_at',{ascending:false}),sb.from('papers').select('*').order('created_at',{ascending:false})]);if(a.error||b.error)say((a.error||b.error).message);else{setDocs(a.data);setPs(b.data)}};
+ useEffect(()=>{load()},[]);
+ const terms=()=>{const z=new Set();[...(s.focus_keywords||[]),...(s.theories||[])].forEach(k=>z.add(k.toLowerCase()));(s.focus_topic||'').toLowerCase().split(/[^a-z0-9]+/).filter(w=>w.length>3&&!STOP.has(w)).forEach(w=>z.add(w));return[...z]};
+ const rel=p=>{const T=terms();if(!T.length)return null;const x=(p.title+' '+p.abstract+' '+(p.tags||[]).join(' ')).toLowerCase(),hit=T.filter(t=>x.includes(t));return{hit,sc:hit.length/T.length}};
+ const addD=async e=>{e.preventDefault();const u=safe(df.url);if(!df.title.trim()||!u)return say('Add a title and a link that starts with https://');const{data,error}=await sb.from('docs').insert({title:df.title.trim(),url:u,kind:df.kind}).select().single();if(error)return say(error.message);setDocs([data,...docs]);setDf(D0)};
+ const addP=async e=>{e.preventDefault();if(!pf.title.trim())return;const u=pf.url.trim();if(u&&!safe(u))return say('Paper link must start with https://');
+  const{data,error}=await sb.from('papers').insert({title:pf.title.trim(),citation:pf.citation.trim(),url:u,abstract:pf.abstract.trim(),tags:tg(pf.tags),doc_id:pf.doc_id||null}).select().single();if(error)return say(error.message);
+  setPs([data,...ps]);setPf(P0);const q=rel(data);if(q&&!q.hit.length)say('⚠ Saved, but this paper does not appear related to your research focus.');touch({tab:'library'})};
+ const del=async(t,id)=>{(t==='docs'?setDocs:setPs)(x=>x.filter(y=>y.id!==id));await sb.from(t).delete().eq('id',id)};
+ const flagged=ps.filter(p=>{const q=rel(p);return q&&!q.hit.length}).length;
+ const badge=p=>{const q=rel(p);if(!q)return html`<span class="chip" style=${{background:'var(--soft)',color:'var(--mu)'}}>Set a focus to scan</span>`;
+  const[bg,tx]=!q.hit.length?['#e03b4d22','#e03b4d']:q.sc<.2?['#e08a0022','var(--amb)']:['#0ca67822','var(--teal)'];
+  return html`<span class="chip" style=${{background:bg,color:tx}}>${!q.hit.length?'⚠ Not related to your focus':q.sc<.2?'Weak match':'Related'}</span>`};
+ return html`<div class="grid gap-5 lg:grid-cols-2">
+  <section class="card" style=${{'--c':'var(--teal)'}}><h2 class="text-xl font-bold m-0 mb-1">My documents</h2><p class="mu mt-0 mb-3">Link your Word files using a OneDrive or Google Drive share link. Nothing is uploaded here.</p>
+   <form onSubmit=${addD} class="grid gap-2 mb-3"><input class="in" placeholder="Title (e.g. Chapter 2 draft v3)" value=${df.title} onInput=${e=>setDf({...df,title:e.target.value})}/><input class="in" placeholder="https://…" value=${df.url} onInput=${e=>setDf({...df,url:e.target.value})}/><div class="flex gap-2"><select class="in" value=${df.kind} onChange=${e=>setDf({...df,kind:e.target.value})}>${KINDS.map(k=>html`<option key=${k}>${k}</option>`)}</select><button class="bt">Add link</button></div></form>
+   ${!docs.length&&html`<p class="mu">No documents linked yet.</p>`}
+   <ul class="list-none p-0 m-0">${docs.map(d=>html`<li key=${d.id} class="flex items-start justify-between gap-2 py-2" style=${{borderBottom:'1px solid var(--line)'}}><div><a href=${d.url} target="_blank" rel="noopener noreferrer" style=${{color:'var(--ind)',fontWeight:600}} onClick=${()=>touch({doc:d.title,tab:'library'})}>${d.title}</a><br/><span class="chip" style=${{background:'var(--soft)',color:'var(--mu)'}}>${d.kind}</span></div><button class="x" onClick=${()=>del('docs',d.id)}>Delete</button></li>`)}</ul></section>
+  <section class="card" style=${{'--c':'var(--amb)'}}><h2 class="text-xl font-bold m-0 mb-1">Paper library</h2><p class="mu mt-0 mb-3">Each paper is scanned against your focus topic, keywords and theories (keyword matching).${flagged?' '+flagged+' flagged.':''}</p>
+   <form onSubmit=${addP} class="grid gap-2 mb-3"><input class="in" placeholder="Paper title" value=${pf.title} onInput=${e=>setPf({...pf,title:e.target.value})}/><input class="in" placeholder="Authors, year" value=${pf.citation} onInput=${e=>setPf({...pf,citation:e.target.value})}/><input class="in" placeholder="Link (https://…)" value=${pf.url} onInput=${e=>setPf({...pf,url:e.target.value})}/><textarea class="in" rows="3" placeholder="Abstract or your summary (improves the scan)" value=${pf.abstract} onInput=${e=>setPf({...pf,abstract:e.target.value})}></textarea><input class="in" placeholder="Tags, comma-separated" value=${pf.tags} onInput=${e=>setPf({...pf,tags:e.target.value})}/><div class="flex gap-2"><select class="in" value=${pf.doc_id} onChange=${e=>setPf({...pf,doc_id:e.target.value})}><option value="">Link to a document (optional)</option>${docs.map(d=>html`<option key=${d.id} value=${d.id}>${d.title}</option>`)}</select><button class="bt" style=${{background:'var(--amb)',borderColor:'var(--amb)'}}>Save paper</button></div></form>
+   ${!ps.length&&html`<p class="mu">No papers saved yet.</p>`}
+   <div class="grid gap-3">${ps.map(p=>{const q=rel(p),d=docs.find(x=>x.id===p.doc_id);return html`<article key=${p.id} class="p-3" style=${{border:'1px solid var(--line)',borderLeft:'4px solid var(--amb)',borderRadius:10,background:'var(--soft)'}}><div class="flex justify-between gap-2"><b>${safe(p.url)?html`<a href=${p.url} target="_blank" rel="noopener noreferrer" style=${{color:'var(--ind)'}}>${p.title}</a>`:p.title}</b><button class="x" onClick=${()=>del('papers',p.id)}>Delete</button></div><div class="mu text-xs mb-1">${p.citation}</div>${badge(p)} ${q&&q.hit.length>0&&html`<span class="mu text-xs">Matches: ${q.hit.slice(0,5).join(', ')}</span>`}${d&&html`<div class="text-xs mt-1">Linked document: <a href=${d.url} target="_blank" rel="noopener noreferrer" style=${{color:'var(--ind)'}}>${d.title}</a></div>`}</article>`})}</div></section></div>`}
+
 function Dash({user}){
- const td=todayS(),[d,setD]=useState({tasks:[],notes:[],quotes:[],target:'2027-11-12'}),[loading,setLoading]=useState(true);
+ const td=todayS(),[day,setDay]=useState(td),[d,setD]=useState({tasks:[],notes:[],quotes:[],target:'2027-11-12',s:{}}),[loading,setLoading]=useState(true);
  const[msg,setMsg]=useState('');const say=m=>{setMsg(m);setTimeout(()=>setMsg(''),5000)};
  const load=async()=>{const[t,n,q,s]=await Promise.all([sb.from('tasks').select('*').order('created_at',{ascending:false}),sb.from('notes').select('*').order('created_at',{ascending:false}),sb.from('quotes').select('*').order('created_at'),sb.from('settings').select('*').maybeSingle()]);
-  const e=t.error||n.error||q.error||s.error;if(e)say('Could not load data: '+e.message);else setD({tasks:t.data,notes:n.data,quotes:q.data,target:s.data?.target_date||'2027-11-12'});setLoading(false)};
+  const e=t.error||n.error||q.error||s.error;if(e)say('Could not load data: '+e.message);else setD({tasks:t.data,notes:n.data,quotes:q.data,target:s.data?.target_date||'2027-11-12',s:s.data||{}});setLoading(false)};
  useEffect(()=>{load();const f=()=>document.visibilityState==='visible'&&load();document.addEventListener('visibilitychange',f);return()=>document.removeEventListener('visibilitychange',f)},[]);
  const[now,setNow]=useState(Date.now());useEffect(()=>{const t=setInterval(()=>setNow(Date.now()),1000);return()=>clearInterval(t)},[]);
- const name=user.user_metadata?.name||(user.email?user.email.split('@')[0]:'Researcher');
+ const s=d.s||{},name=s.display_name||user.user_metadata?.name||(user.email?user.email.split('@')[0]:'Researcher');
+ const saveS=async p=>{setD(x=>({...x,s:{...x.s,...p}}));const{error}=await sb.from('settings').upsert({user_id:user.id,...p});if(error)say(error.message)};
+ const touch=p=>{setDis(true);saveS({last_session:{...(s.last_session||{}),...p,at:new Date().toISOString()}})};
+ const[tab,setTab]=useState('today'),[dis,setDis]=useState(false),[en,setEn]=useState(null),[cat,setCat]=useState(''),[tp,setTp]=useState(()=>localStorage.getItem('dba_theme')||'auto');
+ const hN=new Date(now).getHours(),mode=tp==='auto'?(hN>=6&&hN<18?'day':'night'):tp;
+ useEffect(()=>{document.documentElement.dataset.theme=mode},[mode]);
+ const cycleTheme=()=>{const n={auto:'day',day:'night',night:'auto'}[tp];localStorage.setItem('dba_theme',n);setTp(n)};
+ const phases=[...PH,...(s.custom_phases||[])];
+ const addCat=()=>{const c=cat.trim();if(!c||phases.includes(c))return;saveS({custom_phases:[...(s.custom_phases||[]),c]});setTf(x=>({...x,ph:c}));setCat('')};
+ const pick=(key,max)=>async e=>{const f=e.target.files[0];e.target.value='';if(!f||!f.type.startsWith('image/'))return say('Please choose an image file.');try{saveS({[key]:await shrink(f,max)})}catch(x){say('Could not read that image.')}};
+ const pickAv=pick('avatar',160),pickBg=pick('bg_image',1280);
+ const heroBg=s.bg_image?{backgroundImage:`linear-gradient(rgba(10,20,40,.55),rgba(10,20,40,.55)),url(${s.bg_image})`,backgroundSize:'cover',backgroundPosition:'center'}:undefined;
+ const avatarEl=html`<label class="cursor-pointer shrink-0" title="Change profile picture">${s.avatar?html`<img src=${s.avatar} alt="Profile" style=${{width:56,height:56,borderRadius:'50%',objectFit:'cover',border:'2px solid rgba(255,255,255,.6)'}}/>`:html`<span class="glass hd" style=${{display:'grid',placeItems:'center',width:56,height:56,borderRadius:'50%',padding:0,fontSize:22}}>${name.slice(0,1).toUpperCase()}</span>`}<input type="file" accept="image/*" class="hidden" onChange=${pickAv}/></label>`;
+ const nameEl=en===null?html`<span>${name}</span><button class="x" style=${{color:'#fff'}} aria-label="Edit display name" onClick=${()=>setEn(name)}>✎</button>`:html`<input class="in" style=${{width:190,fontSize:18}} autoFocus value=${en} onInput=${e=>setEn(e.target.value)} onBlur=${()=>{saveS({display_name:en.trim()||null});setEn(null)}} onKeyDown=${e=>e.key==='Enter'&&e.target.blur()}/>`;
+ const nav=html`<nav class="flex gap-2 flex-wrap" aria-label="Sections">${[['today','Today'],['notes','Notes'],['research','Research'],['library','Library']].map(t=>html`<button key=${t[0]} class=${'bt b2 '+(tab===t[0]?'on':'')} onClick=${()=>setTab(t[0])}>${t[1]}</button>`)}</nav>`;
+ const L=s.last_session;
+ const banner=L&&!dis&&!loading&&html`<section class="card fade" style=${{'--c':'var(--teal)'}} role="status"><h2 class="text-lg font-bold m-0">Welcome back. Continue where you left off?</h2><p class="mu m-0 mt-1">Last session: ${fmt(L.at)}</p><ul class="m-0 mt-2 pl-5">${s.current_chapter&&html`<li>Chapter: <b>${s.current_chapter}</b></li>`}${L.task&&html`<li>Last task: <b>${L.task}</b></li>`}${L.note&&html`<li>Last note: <b>${L.note}</b></li>`}${L.doc&&html`<li>Last document: <b>${L.doc}</b></li>`}</ul><div class="flex gap-2 mt-3"><button class="bt" onClick=${()=>{setTab(L.tab||'today');setDis(true)}}>Continue</button><button class="bt b2" onClick=${()=>setDis(true)}>Dismiss</button></div></section>`;
  const diff=new Date(d.target+'T23:59:59').getTime()-now,ok=diff>0,P=n=>String(n).padStart(2,'0');
  const cd=[['days',Math.floor(diff/864e5)],['hrs',Math.floor(diff/36e5)%24],['min',Math.floor(diff/6e4)%60],['sec',Math.floor(diff/1e3)%60]];
  const hr=new Date().getHours(),hello=hr<12?'Good morning':hr<18?'Good afternoon':'Good evening';
@@ -93,16 +185,18 @@ function Dash({user}){
  const delQ=async id=>{setD(x=>({...x,quotes:x.quotes.filter(q=>q.id!==id)}));setQi(0);const{error}=await sb.from('quotes').delete().eq('id',id);if(error)say(error.message)};
  // tasks
  const[tf,setTf]=useState({text:'',ph:PH[1]}),[view,setView]=useState('today');
- const addT=async e=>{e.preventDefault();if(!tf.text.trim())return;const{data,error}=await sb.from('tasks').insert({text:tf.text.trim(),phase:tf.ph,task_date:td}).select().single();if(error)return say(error.message);setD(x=>({...x,tasks:[data,...x.tasks]}));setTf({...tf,text:''})};
+ const addT=async e=>{e.preventDefault();if(!tf.text.trim())return;const{data,error}=await sb.from('tasks').insert({text:tf.text.trim(),phase:tf.ph,task_date:day}).select().single();if(error)return say(error.message);setD(x=>({...x,tasks:[data,...x.tasks]}));touch({task:tf.text.trim(),tab:'today'});setTf({...tf,text:''})};
  const togT=async t=>{setD(x=>({...x,tasks:x.tasks.map(y=>y.id===t.id?{...y,done:!y.done}:y)}));const{error}=await sb.from('tasks').update({done:!t.done}).eq('id',t.id);if(error){say(error.message);load()}};
  const delT=async id=>{setD(x=>({...x,tasks:x.tasks.filter(y=>y.id!==id)}));const{error}=await sb.from('tasks').delete().eq('id',id);if(error){say(error.message);load()}};
- const tt=d.tasks.filter(t=>t.task_date===td),dn=tt.filter(t=>t.done).length,pct=tt.length?Math.round(dn/tt.length*100):0,shown=view==='today'?tt:d.tasks;
+ const moveT=async(id,v)=>{if(!v)return;setD(x=>({...x,tasks:x.tasks.map(y=>y.id===id?{...y,task_date:v}:y)}));const{error}=await sb.from('tasks').update({task_date:v}).eq('id',id);if(error){say(error.message);load()}};
+ const shiftDay=n=>{const x=new Date(day+'T00:00:00');x.setDate(x.getDate()+n);setDay(new Date(x.getTime()-x.getTimezoneOffset()*6e4).toISOString().slice(0,10))};
+ const tt=d.tasks.filter(t=>t.task_date===day),dn=tt.filter(t=>t.done).length,pct=tt.length?Math.round(dn/tt.length*100):0,shown=view==='today'?tt:d.tasks;
  // notes
  const E0={id:'',title:'',body:'',tags:''},[nf,setNf]=useState(E0),[q,setQ]=useState('');
  const saveN=async e=>{e.preventDefault();if(!nf.title.trim()&&!nf.body.trim())return;const tags=nf.tags.split(',').map(s=>s.trim().replace(/^#/,'')).filter(Boolean);
   if(nf.id){const{data,error}=await sb.from('notes').update({title:nf.title,body:nf.body,tags,edited_at:new Date().toISOString()}).eq('id',nf.id).select().single();if(error)return say(error.message);setD(x=>({...x,notes:x.notes.map(n=>n.id===nf.id?data:n)}))}
   else{const{data,error}=await sb.from('notes').insert({title:nf.title,body:nf.body,tags}).select().single();if(error)return say(error.message);setD(x=>({...x,notes:[data,...x.notes]}))}
-  setNf(E0)};
+  touch({note:nf.title||'Untitled note',tab:'notes'});setNf(E0)};
  const delN=async id=>{setD(x=>({...x,notes:x.notes.filter(n=>n.id!==id)}));const{error}=await sb.from('notes').delete().eq('id',id);if(error){say(error.message);load()}};
  const notes=d.notes.filter(n=>(n.title+' '+n.body+' '+n.tags.join(' ')).toLowerCase().includes(q.toLowerCase()));
  // backup
@@ -122,33 +216,35 @@ function Dash({user}){
    if(j.target)await setTarget(j.target);await load();say('Imported '+T.length+' tasks, '+N.length+' notes, '+Q.length+' quotes.')}catch(err){say('Import failed: not a valid DBA Journey JSON backup.')}};r.readAsText(f)};
  const out=()=>sb.auth.signOut();
  return html`<div class="fade mx-auto max-w-6xl p-4 md:p-6 grid gap-5">
-  <header class="hero"><${Shapes}/><div class="rel flex flex-wrap items-center justify-between gap-5">
-   <div><h1 class="hd text-3xl font-extrabold m-0">${hello}, ${name}</h1><p class="m-0 mt-1" style=${{opacity:.8}}>${new Date(now).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p></div>
+  <header class="hero" style=${heroBg}><${Shapes}/><div class="rel flex flex-wrap items-center justify-between gap-5">
+   <div><h1 class="hd text-3xl font-extrabold m-0 flex items-center gap-3 flex-wrap">${avatarEl}<span>${hello},</span>${nameEl}</h1><p class="m-0 mt-1" style=${{opacity:.8}}>${new Date(now).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}</p></div>
    <div class="flex items-center gap-4 flex-wrap"><div>
     <div class="flex gap-2" aria-label="Countdown to DBA target date">${ok?cd.map(c=>html`<div class="glass" key=${c[0]}><div class="hd text-2xl font-bold leading-tight">${c[0]==='days'?c[1]:P(c[1])}</div><div class="text-xs" style=${{opacity:.75}}>${c[0]}</div></div>`):html`<strong>Target date reached</strong>`}</div>
-    <label class="text-xs flex items-center gap-2 mt-2" style=${{opacity:.9}}>DBA target date <input type="date" class="in" style=${{padding:'2px 6px',width:'auto',background:'rgba(255,255,255,.14)',color:'#fff',borderColor:'rgba(255,255,255,.3)'}} value=${d.target} onChange=${e=>setTarget(e.target.value)}/></label></div>
-    <button class="bt b2" onClick=${out}>Log out</button></div></div></header>
+    <label class="text-xs flex items-center gap-2 mt-2" style=${{opacity:.9}}>Change your DBA target date <input type="date" class="in" style=${{padding:'2px 6px',width:'auto',background:'rgba(255,255,255,.14)',color:'#fff',borderColor:'rgba(255,255,255,.3)'}} value=${d.target} onChange=${e=>setTarget(e.target.value)}/></label></div>
+    <div class="flex gap-2 flex-wrap items-center"><label class="bt b2 m-0" style=${{cursor:'pointer'}}>Background<input type="file" accept="image/*" class="hidden" onChange=${pickBg}/></label>${s.bg_image&&html`<button class="x" style=${{color:'#fff'}} onClick=${()=>saveS({bg_image:null})}>Reset</button>`}<button class="bt b2" onClick=${cycleTheme}>${tp==="auto"?"Auto":tp==="day"?"Day":"Night"} theme</button><button class="bt b2" onClick=${out}>Log out</button></div></div></div></header>${nav}
 
-  <section class="card" style=${{'--c':'var(--ind)'}} aria-label="Daily quote">
+  ${banner}<section class="card" style=${{'--c':'var(--ind)',display:tab==='today'?'':'none'}} aria-label="Daily quote">
    <p class="hd text-2xl font-semibold m-0 leading-snug">“${cur.t}”</p><p class="mu mt-2 mb-3">— ${cur.by}</p>
    <div class="flex gap-2 flex-wrap items-center"><button class="bt b2" onClick=${()=>setQi((qi+1)%all.length)}>Next quote</button><button class="bt b2" onClick=${()=>setQf(qf?null:{text:'',by:''})}>${qf?'Cancel':'Add my own quote'}</button>${cur.id&&html`<button class="x" onClick=${()=>delQ(cur.id)}>Delete this quote</button>`}</div>
    ${qf&&html`<form onSubmit=${addQ} class="grid gap-2 mt-3 md:grid-cols-[2fr_1fr_auto]"><input class="in" placeholder="Quote text" value=${qf.text} onInput=${e=>setQf({...qf,text:e.target.value})}/><input class="in" placeholder="Author (optional)" value=${qf.by} onInput=${e=>setQf({...qf,by:e.target.value})}/><button class="bt">Save quote</button></form>`}</section>
 
   <div class="grid gap-5 lg:grid-cols-5">
-   <section class="card lg:col-span-2" style=${{'--c':'var(--teal)'}} aria-label="Task tracker">
-    <h2 class="text-xl font-bold m-0 mb-3">Today’s DBA tasks</h2>
+   <section class="card lg:col-span-2" style=${{'--c':'var(--teal)',display:tab==='today'?'':'none'}} aria-label="Task tracker">
+    <h2 class="text-xl font-bold m-0 mb-3">${day===td?'Today’s':new Date(day+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})+' ·'} DBA tasks</h2>
+    <div class="flex gap-2 items-center mb-3 flex-wrap"><button class="bt b2" aria-label="Previous day" onClick=${()=>shiftDay(-1)}>‹</button><input type="date" class="in" style=${{width:'auto'}} aria-label="Choose a date" value=${day} onChange=${e=>e.target.value&&setDay(e.target.value)}/><button class="bt b2" aria-label="Next day" onClick=${()=>shiftDay(1)}>›</button><button class="bt b2" onClick=${()=>setDay(td)}>Today</button></div>
     <div class="flex justify-between mu mb-1"><span>${dn} of ${tt.length} done</span><strong style=${{color:'var(--teal)'}}>${pct}%</strong></div>
     <div class="pb mb-4" role="progressbar" aria-valuenow=${pct} aria-valuemin="0" aria-valuemax="100"><div style=${{width:pct+'%'}}></div></div>
     <form onSubmit=${addT} class="grid gap-2 mb-3"><input class="in" placeholder="What will you work on?" value=${tf.text} onInput=${e=>setTf({...tf,text:e.target.value})}/>
-     <div class="flex gap-2"><select class="in" value=${tf.ph} onChange=${e=>setTf({...tf,ph:e.target.value})}>${PH.map(p=>html`<option key=${p}>${p}</option>`)}</select><button class="bt" style=${{background:'var(--teal)',borderColor:'var(--teal)'}}>Add</button></div></form>
-    <div class="flex gap-2 mb-2"><button class=${'bt b2 '+(view==='today'?'on':'')} onClick=${()=>setView('today')}>Today</button><button class=${'bt b2 '+(view==='all'?'on':'')} onClick=${()=>setView('all')}>All dates</button></div>
+     <div class="flex gap-2"><select class="in" value=${tf.ph} onChange=${e=>setTf({...tf,ph:e.target.value})}>${phases.map(p=>html`<option key=${p}>${p}</option>`)}</select><button class="bt" style=${{background:'var(--teal)',borderColor:'var(--teal)'}}>Add</button></div></form>
+    <div class="flex gap-2 mb-3"><input class="in" placeholder="＋ Add your own category" value=${cat} onInput=${e=>setCat(e.target.value)} onKeyDown=${e=>e.key==='Enter'&&(e.preventDefault(),addCat())}/><button type="button" class="bt b2" onClick=${addCat}>Add</button></div>
+    <div class="flex gap-2 mb-2"><button class=${'bt b2 '+(view==='today'?'on':'')} onClick=${()=>setView('today')}>Selected day</button><button class=${'bt b2 '+(view==='all'?'on':'')} onClick=${()=>setView('all')}>All dates</button></div>
     ${loading?html`<p class="mu">Loading…</p>`:!shown.length&&html`<p class="mu">No tasks yet. Add the first one above.</p>`}
     <ul class="list-none p-0 m-0">${shown.map(t=>html`<li key=${t.id} class="flex items-start gap-2 py-2" style=${{borderBottom:'1px solid var(--line)'}}>
      <input type="checkbox" class="mt-1" checked=${t.done} aria-label=${'Done: '+t.text} onChange=${()=>togT(t)}/>
-     <div class="flex-1"><div style=${{textDecoration:t.done?'line-through':'none',opacity:t.done?.55:1}}>${t.text}</div><span class="chip" style=${{background:pc(t.phase)+'22',color:pc(t.phase)}}>${t.phase}</span>${view==='all'&&html`<span class="mu text-xs ml-2">${t.task_date}</span>`}</div>
+     <div class="flex-1"><div style=${{textDecoration:t.done?'line-through':'none',opacity:t.done?.55:1}}>${t.text}</div><span class="chip" style=${{background:pc(t.phase)+'22',color:pc(t.phase)}}>${t.phase}</span><input type="date" class="in" aria-label="Move task to another date" style=${{width:'auto',padding:'1px 6px',fontSize:12,marginLeft:8}} value=${t.task_date} onChange=${e=>moveT(t.id,e.target.value)}/></div>
      <button class="x" aria-label="Delete task" onClick=${()=>delT(t.id)}>Delete</button></li>`)}</ul></section>
 
-   <section class="card lg:col-span-3" style=${{'--c':'var(--amb)'}} aria-label="Research notes">
+   ${tab==='today'&&!loading&&html`<div class="lg:col-span-3"><${Alarms} s=${s} saveS=${saveS} say=${say}/></div>`}<section class=${'card '+(tab==='notes'?'lg:col-span-5':'lg:col-span-3')} style=${{'--c':'var(--amb)',display:tab==='notes'?'':'none'}} aria-label="Research notes">
     <h2 class="text-xl font-bold m-0 mb-3">Quick research notes</h2>
     <form onSubmit=${saveN} class="grid gap-2 mb-4"><input class="in" placeholder="Title (e.g. Paper summary: Witte 1992)" value=${nf.title} onInput=${e=>setNf({...nf,title:e.target.value})}/>
      <textarea class="in" rows="4" placeholder="Write your note…" value=${nf.body} onInput=${e=>setNf({...nf,body:e.target.value})}></textarea>
@@ -162,6 +258,7 @@ function Dash({user}){
      <div class="flex gap-1 flex-wrap">${n.tags.map(t=>html`<button class="chip" key=${t} style=${{background:'color-mix(in srgb,var(--amb) 18%,transparent)',color:'var(--amb)',cursor:'pointer'}} onClick=${()=>setQ(t)}>#${t}</button>`)}</div></article>`)}</div></section>
   </div>
 
+  ${tab==='research'&&!loading&&html`<${Research} s=${s} saveS=${saveS} touch=${touch} say=${say}/>`}${tab==='library'&&!loading&&html`<${Library} s=${s} touch=${touch} say=${say}/>`}
   <footer class="card flex flex-wrap items-center gap-2" style=${{'--c':'var(--cor)'}} aria-label="Backup">
    <strong class="mr-2"><span class="dot" style=${{background:'var(--cor)'}}></span>Backup</strong>
    <button class="bt b2" onClick=${expJ}>Export JSON</button><button class="bt b2" onClick=${expC}>Export CSV</button>
@@ -175,5 +272,6 @@ function App(){
   const{data:l}=sb.auth.onAuthStateChange((_e,s)=>setU(s?.user??null));return()=>l.subscription.unsubscribe()},[]);
  if(!ready)return html`<p class="p-6 mu">Loading…</p>`;
  return u?html`<${Dash} key=${u.id} user=${u}/>`:html`<${Login}/>`}
+if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/sw.js').catch(()=>{}));
 ReactDOM.createRoot(document.getElementById('root')).render(html`<${App}/>`);
 </script></body></html>
